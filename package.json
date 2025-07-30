@@ -7,7 +7,7 @@
     "dev": "npm-run-all --parallel dev:sveltekit pyloid",
     "dev:sveltekit": "vite dev",
     "pyloid": "uv run -p .venv ./src-pyloid/main.py",
-    "build": "build:sveltekit && uv run -p .venv ./src-pyloid/build.py",
+    "build": "vite build && uv run -p .venv ./src-pyloid/build.py",
     "build:sveltekit": "vite build",
     "setup": "pnpm install && uv venv && uv add -r requirements.txt"
   },
@@ -28,7 +28,7 @@
     "@sveltejs/adapter-static": "^3.0.8",
     "@sveltejs/kit": "^2.26.1",
     "@sveltejs/vite-plugin-svelte": "^3.1.0",
-    "@tailwindcss/typography": "^0.5.13",
+    "@tailwindcss/typography": "^0.5.16",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "ai": "^3.1.1",

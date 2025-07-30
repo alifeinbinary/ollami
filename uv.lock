@@ -440,6 +440,21 @@ wheels = [
 ]
 
 [[package]]
+name = "ollami"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "pyloid" },
+    { name = "pyloid-builder" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "pyloid", specifier = ">=0.24.8" },
+    { name = "pyloid-builder", specifier = ">=0.1.1" },
+]
+
+[[package]]
 name = "orjson"
 version = "3.11.1"
 source = { registry = "https://pypi.org/simple" }
@@ -727,21 +742,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/69/82/1cd6d2dde9a165384bd882693643af1543a06b71498c8f6f6d6e0a90d147/pyloid-0.24.8.tar.gz", hash = "sha256:700f0b5d1b6cc707b495a3d16d4331b629db8cf6213bb084e9ada0048f222289", size = 58528, upload-time = "2025-06-13T05:34:33.98Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c2/55/35633f6880b308a4bd6bdcfc386fb80b54522de1b869b8c1174ef3c7f731/pyloid-0.24.8-py3-none-any.whl", hash = "sha256:3643f854ed6c8cc31ecdcd7e6c767521176cfad33d7c561b111285cfafa9196a", size = 64936, upload-time = "2025-06-13T05:34:32.086Z" },
-]
-
-[[package]]
-name = "pyloid-app"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "pyloid" },
-    { name = "pyloid-builder" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "pyloid", specifier = ">=0.24.8" },
-    { name = "pyloid-builder", specifier = ">=0.1.1" },
 ]
 
 [[package]]

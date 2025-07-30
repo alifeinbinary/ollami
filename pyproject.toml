@@ -1,7 +1,7 @@
 [project]
-name = "pyloid-app"
+name = "ollami"
 version = "0.1.0"
-description = "pyloid project!"
+description = "Ollami - The AI assistant for your desktop!"
 readme = "README.md"
 
 requires-python = ">=3.9"
