@@ -58,7 +58,7 @@ docker compose up -d
 ```
 Go to [localhost:5050](http://localhost:5050) to access Ollami!
 
-### With NPM (Developpers only) 🧰
+### With NPM (Developers only) 🧰
 
 > [!NOTE] 
 > This guide assumes that you have installed the latest version of Node.js and npm. If not : [Download Node.js (Node.js + npm)](https://nodejs.org/en/download/)
@@ -70,20 +70,37 @@ git clone https://github.com/aetaix/ollami.git ollami
 cd ollami
 ```
 
-Install packages and start the app:
+Install Python, create virtual environment and Node packages:
 
 ```bash
-npm install
+pnpm run setup
 ```
 
 Launch the app:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 > [!TIP]
 > No need to add .env variable, the app will use the default Ollama server locally started while using the `ollama run` command. By default the server is running on `http://127.0.0.1:11434`
+
+### Build
+
+To build the application:
+
+```bash
+pnpm run build
+```
+
+## Project Structure
+
+The project consists of the following main directories and files:
+
+- `dist/`: Directory where the final desktop application build files are stored.
+- `dist-front/`: Directory where the frontend code build files are stored.
+- `build_config.json`: Build configuration file for PyInstaller to generate spec files for each operating system (Windows, macOS, Linux).
+- `src-pyloid/`: Directory containing the source code for the Pyloid application.
 
 #### Explore Available Models
 
@@ -114,3 +131,8 @@ Here are some example models that can be downloaded:
 
 > [!TIP]  
 > You should have at least 8 GB of RAM available to run the 7B models, 16 GB to run the 13B models, and 32 GB to run the 33B models.
+
+
+## Support
+
+If you encounter any issues or have questions, please create an issue in the repository.
