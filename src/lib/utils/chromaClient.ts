@@ -1,6 +1,6 @@
 import { ChromaClient } from 'chromadb';
 import { Chroma } from '@langchain/community/vectorstores/chroma';
-import { type OllamaEmbeddings } from '@langchain/community/embeddings/ollama';
+import { type OllamaEmbeddings } from '@langchain/ollama';
 import { env } from '$env/dynamic/private'
 
 let url = env.CHROMA_API_URL || '';

@@ -1,6 +1,5 @@
 import { Ollama } from 'ollama'; // JS Library
-import { Ollama as OllamaLLM } from "@langchain/community/llms/ollama"; // Langchain
-import { OllamaEmbeddings } from '@langchain/community/embeddings/ollama'; // Langchain Embeddings
+import { Ollama as OllamaLLM, OllamaEmbeddings } from "@langchain/ollama"; // Langchain
 import { createOllama } from 'ollama-ai-provider'; // Vercel Provider
 import { env } from '$env/dynamic/private'
 import { URL } from 'url';
