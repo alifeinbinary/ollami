@@ -1,10 +1,10 @@
 import { Ollama } from 'ollama'; // JS Library
 import { Ollama as OllamaLLM, OllamaEmbeddings } from "@langchain/ollama"; // Langchain
 import { createOllama } from 'ollama-ai-provider'; // Vercel Provider
-import { env } from '$env/dynamic/private'
+import { OLLAMA_API_URL } from '$env/static/private'
 import { URL } from 'url';
 
-const baseURL = env.OLLAMA_API_URL || 'http://localhost:11434';
+const baseURL = OLLAMA_API_URL || 'http://localhost:11434';
 
 // Ollama JavaScript Library - https://github.com/ollama/ollama-js
 export const ollamaJS = new Ollama({
