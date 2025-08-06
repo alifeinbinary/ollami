@@ -3,6 +3,8 @@
 	import { goto } from '$app/navigation';
 	import { currentModel, models } from '$lib/stores/models';
 	import ModelSize from './ModelSize.svelte';
+	import ModelContext from './ModelContext.svelte';
+	import ModelInput from './ModelInput.svelte';
 	import Trash from '../icons/Trash.svelte';
 	import StarLine from '../icons/StarLine.svelte';
 	import StartFill from '../icons/StartFill.svelte';
@@ -10,21 +12,38 @@
 	export let name = '';
 	export let image = '';
 	export let icon = '';
-	export let parameters = '';
+	// export let parameters = '';
+	export let versions = [{parameters: '', size: 0, context: 0, input: ['text'], isLatest: false}];
 	export let description = '';
-	export let tags = [];
-	export let size = 0;
+	export let tags = [''];
+	// export let size = 0;
 	export let popularity = 1;
 	export let installed = false;
 	export let fav = false;
 	let loading = false;
 	let progress = 0;
 
+	// Find the latest version and set it as default selected version
+	$: latestVersion = versions.find((version) => version.isLatest) || versions[0] || {parameters: '', size: 0, context: 0, input: ['text']};
+	
+	// Initialize selectedVersion with latest version, but allow user to change it
+	/**
+	 * @type {{ parameters: string; size: number; context: number; input: string[]; isLatest?: boolean; }}
+	 */
+	let selectedVersion;
+	
+	// Only update selectedVersion when versions array changes (new model data), not when user selects
+	$: {
+		if (!selectedVersion || !versions.find(v => v.parameters === selectedVersion.parameters)) {
+			selectedVersion = latestVersion;
+		}
+	}
+
 	$: {
 		if (browser) {
 			// check local storage if there is an installation queue running
 			const queue = JSON.parse(localStorage.getItem('queue') || '[]');
-			// if the model is in the queue and is not already installed, set loading to true esle remove it from the queue
+			// if the model is in the queue and is not already installed, set loading to true else remove it from the queue
 			if (queue.includes(image) && !installed) {
 				loading = true;
 			} else {
@@ -34,7 +53,7 @@
 	}
 
 	function setCurrentModel() {
-		currentModel.set({ name, image, icon, description, tags, size, installed, parameters });
+		currentModel.set({ name, image, icon, description, tags, installed, versions });
 		goto('/');
 	}
 
@@ -112,14 +131,22 @@
 <div
 	class="bg-white dark:bg-black-700 border border-black-200 dark:border-black-600 hover:shadow-lg transition-shadow rounded-xl p-4"
 >
-	<header class="flex items-center justify-between mb-4">
+	<header class="flex items-center justify-between mb-2">
 		<div class="flex items-center gap-2">
 			<img src="/icons/models/{icon}" alt={name} class="w-4 h-4" />
 
 			<h2 class="text-sm">
-				<span class="font-semibold">{name}</span><span
-					class="font-mono ml-1 text-black-500 dark:text-black-200">{parameters}</span
+				<span class="font-semibold">{name}:</span>
+				<select 
+					bind:value={selectedVersion}
+					class="font-mono ml-0 text-black-500 dark:text-black-200 bg-transparent border-none outline-none cursor-pointer hover:bg-black-50 dark:hover:bg-black-600 rounded px-0"
 				>
+					{#each versions as version}
+						<option value={version} class="bg-white dark:bg-black-700">
+							{version.parameters}
+						</option>
+					{/each}
+				</select>
 			</h2>
 		</div>
 
@@ -181,20 +208,32 @@
 			</button>
 		{/if}
 	</header>
+	<table class="w-auto mb-2">
+		<tr>
+			<td>
+				<ModelSize size={selectedVersion?.size} />
+			</td>
+			<td>
+				<ModelContext context={selectedVersion?.context} />
+			</td>
+			<td>
+				<ModelInput input={selectedVersion?.input} />
+			</td>
+		</tr>
+	</table>
 	<p class="text-sm text-black-500 dark:text-black-200">{description}</p>
-	<footer class="flex items-center justify-between mt-4">
-		<div class="flex items-center gap-1">
+	<footer class="items-center justify-between mt-4">
+		<div class="flex items-center gap-1 flex-wrap pb-1">
 			{#each tags as tag}
 				<span
-					class="text-xs text-black-500 dark:text-black-300 border border-black-200 px-2 py-1 rounded-full"
+					class="text-xs text-black-500 dark:text-black-300 border border-black-200 px-1.5 py-0.5 rounded-md"
 					>{tag}</span
 				>
 			{/each}
-			<span class="text-xs ml-1"
-				>{popularity > 1000 ? popularity / 1000 + 'M' : popularity + 'K'} Pulls</span
-			>
 		</div>
-		<ModelSize {size} />
+		<span class="text-xs ml-1"
+			>{popularity > 1000 ? popularity / 1000 + 'M' : popularity + 'K'} Pulls</span
+		>
 	</footer>
 </div>
 

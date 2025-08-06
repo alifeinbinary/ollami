@@ -107,11 +107,10 @@
 				name={model.name}
 				image={model.image}
 				icon={model.icon || 'model.svg'}
-				parameters={model.parameters}
+				versions={model.versions || []}
 				description={model.description ||
 					"This model is derived, meaning it use its parent model's weights to generate responses."}
 				tags={model.tags || []}
-				size={parseFloat(model.size)}
 				popularity={model.popularity}
 				installed={model.installed}
         fav={model.fav}

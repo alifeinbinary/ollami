@@ -11,5 +11,5 @@
 
 <span
   class="text-xs text-black-500 {sizeColor} dark:text-black-300 px-2 py-1 rounded-full"
-  >{size}Go</span
+  >{size / 1000}GB</span
 >
